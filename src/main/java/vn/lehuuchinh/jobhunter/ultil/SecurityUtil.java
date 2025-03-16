@@ -28,10 +28,10 @@ public class SecurityUtil {
 
     public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
 
-    @Value("${hoidanit.jwt.base64-secret}")
+    @Value("${lehuuchinh.jwt.base64-secret}")
     private String jwtKey;
 
-    @Value("${hoidanit.jwt.token-validity-in-seconds}")
+    @Value("${lehuuchinh.jwt.token-validity-in-seconds}")
     private long jwtExpiration;
 
     public String createToken(Authentication authentication) {
@@ -43,7 +43,7 @@ public class SecurityUtil {
             .issuedAt(now)
             .expiresAt(validity)
             .subject(authentication.getName())
-            .claim("hoidanit", authentication)
+            .claim("lehuuchinh", authentication)
             .build();
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
