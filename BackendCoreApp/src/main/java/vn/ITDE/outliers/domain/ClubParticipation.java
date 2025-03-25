@@ -17,4 +17,29 @@ public class ClubParticipation {
     private Club club;
 
     // Getters and setters...
+
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public ClubParticipationId getId() {
+        return id;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setId(ClubParticipationId id) {
+        this.id = id;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+    }
 }

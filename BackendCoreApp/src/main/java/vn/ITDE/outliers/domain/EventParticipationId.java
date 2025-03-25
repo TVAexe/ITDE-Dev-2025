@@ -18,6 +18,25 @@ public class EventParticipationId implements Serializable {
 
     // Getters and setters...
 
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
