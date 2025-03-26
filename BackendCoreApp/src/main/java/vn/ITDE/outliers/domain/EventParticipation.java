@@ -17,4 +17,17 @@ public class EventParticipation {
     private Event event;
 
     // Getters and setters...
+
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public EventParticipationId getId() {
+        return id;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
 }

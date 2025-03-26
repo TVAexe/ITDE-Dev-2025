@@ -35,4 +35,35 @@ public class Event {
     private List<EventParticipation> eventParticipations;
 
     // Getters and setters...
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public Method getParticipationMethod() {
+        return participationMethod;
+    }
+
+    public short getPoints() {
+        return points;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+
 }

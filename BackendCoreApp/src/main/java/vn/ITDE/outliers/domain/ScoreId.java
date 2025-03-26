@@ -18,6 +18,25 @@ public class ScoreId implements Serializable {
 
     // Getters and setters...
 
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

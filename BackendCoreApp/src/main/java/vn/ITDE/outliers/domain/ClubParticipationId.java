@@ -18,6 +18,23 @@ public class ClubParticipationId implements Serializable {
 
     // Getters and setters...
 
+
+    public String getClubId() {
+        return clubId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setClubId(String clubId) {
+        this.clubId = clubId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
