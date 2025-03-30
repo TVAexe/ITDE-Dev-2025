@@ -16,6 +16,8 @@ public class ClubParticipation {
     @MapsId("clubId")
     private Club club;
 
+    @Column
+    private short position;
     // Getters and setters...
 
 

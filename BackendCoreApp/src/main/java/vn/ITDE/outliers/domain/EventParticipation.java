@@ -1,5 +1,8 @@
 package vn.ITDE.outliers.domain;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,20 +17,12 @@ public class EventParticipation {
 
     @ManyToOne
     @MapsId("eventId")
-    private Event event;
+    private EventDetails event;
 
+    @Column
+    private short position;
+
+    @Column
+    private short checkin_count;
     // Getters and setters...
-
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public EventParticipationId getId() {
-        return id;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
 }
