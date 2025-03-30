@@ -8,7 +8,7 @@ public class Account {
     @Id
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition="TEXT")
     private String password;
 
     @OneToOne

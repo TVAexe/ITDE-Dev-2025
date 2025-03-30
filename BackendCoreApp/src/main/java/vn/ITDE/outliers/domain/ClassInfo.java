@@ -3,16 +3,17 @@ package vn.ITDE.outliers.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "club")
-public class Club {
+@Table(name = "class_info")
+public class ClassInfo {
     @Id
     private String id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "managing_unit")
-    private short managingUnit;
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     // Getters and setters...
 }

@@ -1,0 +1,25 @@
+package vn.ITDE.outliers.domain;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "semester")
+public class Semester {
+    @Id
+    private String id;
+
+    @Column(nullable = false)
+    private short number;
+
+    @Column(nullable = false)
+    private short year;
+
+    @Column(name = "start_time", nullable = false)
+    private LocalDateTime startTime;
+
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
+
+    // Getters and setters...
+}
