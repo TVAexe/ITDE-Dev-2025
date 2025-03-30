@@ -11,8 +11,11 @@ public class Account {
     @Column(nullable = false, columnDefinition="TEXT")
     private String password;
 
-    @OneToOne
-    @MapsId
+    @Column(nullable = false, name = "role")
+    private short role;
+
+    @OneToOne(optional = true) // Cho phép student_id là NULL
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
     // Getters and setters...
