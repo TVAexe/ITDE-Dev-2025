@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Table(name = "semester")
 public class Semester {
     @Id
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "semesterId")
     private String id;
 
     @Column(nullable = false)

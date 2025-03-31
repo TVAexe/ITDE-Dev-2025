@@ -1,12 +1,16 @@
 package vn.ITDE.outliers.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class ClubParticipationId implements Serializable {
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)")
     private String studentId;
+
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)")
     private String clubId;
 
     public ClubParticipationId() {}

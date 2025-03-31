@@ -62,5 +62,11 @@ public class AccountService {
         }
         return currentAccount;
     }
+
+    public Account handleGetAccountByUsername(String username) {
+        return this.accountRepository.findById(username).orElse(null);
+    }
+
+    
     
 }

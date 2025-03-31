@@ -7,7 +7,10 @@ import java.time.LocalDate;
 @Table(name = "student")
 public class Student {
     @Id
-    private String id;
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)")
+    private String id; // Khóa chính với độ dài cố định là 32 ký tự
+
+    
 
     private String name;
 
