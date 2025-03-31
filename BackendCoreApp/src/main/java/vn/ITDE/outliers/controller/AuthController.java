@@ -40,7 +40,7 @@ public class AuthController {
         // create a token
         String access_token = this.securityUtil.createToken(authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+
         ResLoginDTO res = new ResLoginDTO();
         res.setAccessToken(access_token);
         return ResponseEntity.ok().body(res);
@@ -60,5 +60,4 @@ public class AuthController {
     // accountRepository.save(account);
 
     // return ResponseEntity.ok("Đăng ký tài khoản thành công");
-}
 }
