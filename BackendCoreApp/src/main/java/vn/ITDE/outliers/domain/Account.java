@@ -45,6 +45,16 @@ public class Account {
         return student;
     }
 
+    public short getRole() {
+        return role;
+    }
+
+    public void setRole(short role) {
+        this.role = role;
+    }
+
+    
+
 
 
 }
