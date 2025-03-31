@@ -34,5 +34,9 @@ public class EventDetails {
     @Column(nullable = false)
     private short status;
 
+    @ManyToOne
+    @JoinColumn(name = "semester_id", referencedColumnName = "semesterId", nullable = false)
+    private Semester semester;
+
     // Getters and setters...
 }
