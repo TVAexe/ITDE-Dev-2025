@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 @Table(name = "club")
 public class Club {
     @Id
-    private String id;
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "clubId")
+    private String id; // Khóa chính với độ dài cố định là 32 ký tự
+
 
     @Column(nullable = false)
     private String name;

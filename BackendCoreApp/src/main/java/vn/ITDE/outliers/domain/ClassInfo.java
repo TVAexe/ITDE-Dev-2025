@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 @Table(name = "class_info")
 public class ClassInfo {
     @Id
-    private String id;
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name= "classId")
+    private String id; 
+
 
     @Column(nullable = false)
     private String name;

@@ -13,10 +13,12 @@ public class EventParticipation {
 
     @ManyToOne
     @MapsId("studentId")
+    @JoinColumn(name = "student_id") // Chỉ định tên cột rõ ràng
     private Student student;
 
     @ManyToOne
     @MapsId("eventId")
+    @JoinColumn(name = "event_id") // Chỉ định tên cột rõ ràng
     private EventDetails event;
 
     @Column
