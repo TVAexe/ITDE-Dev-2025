@@ -1,21 +1,92 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack } from "expo-router";
-import { View } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import TableInfo from "@/components/TableInfo";
-import { useGetTrainingPointsQuery } from "@/services";
-import { useAppSelector } from "@/store/hooks";
+import { useGetTrainingPointsQuery } from "@/services/trainingpoints.service";
+import { useGetSemesterByStudentIdQuery } from "@/services/semester.service";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { Dropdown } from "react-native-element-dropdown";
+import ScoreInfo from "@/components/ScoreInfo";
+
 export default function Analyst() {
-    const user = useAppSelector((state) => state.user);
+    const [user, setUser] = useState<{ id: string } | null>(null);
+    const [semesterId, setSemesterId] = useState<string | null>(null);
 
-    const { data: trainingPointsData } = useGetTrainingPointsQuery({ studentId: user.studentId || "" });
+    useEffect(() => {
+        const fetchUser = async () => {
+            const userData = await AsyncStorage.getItem("userInfo");
+            if (userData) {
+                setUser(JSON.parse(userData));
+            }
+        };
+        fetchUser();
+    }, []);
 
+    const { data: semesterData, isLoading: isSemesterLoading } = useGetSemesterByStudentIdQuery(
+        user?.id ? user.id : skipToken
+    );
+
+    const semesterOptions = semesterData
+        ? semesterData.map((semester: any) => ({
+              label: semester.semester_id, 
+              value: semester.semester_id,
+          }))
+        : [];
+
+    useEffect(() => {
+        if (!semesterId && semesterOptions.length > 0) {
+            setSemesterId(semesterOptions[0].value);
+        }
+    }, [semesterOptions]);
+
+
+    const { data: trainingPointsData, isLoading } = useGetTrainingPointsQuery(
+        user?.id && semesterId ? { studentId: user.id, semesterId } : skipToken
+    );
+
+
+    if (!user) return <Text>Loading user info...</Text>;
 
     return (
-        <View>
+        <View style={styles.container}>
             <Stack.Screen options={{ title: "Kết quả rèn luyện" }} />
-            <View style={{ padding: 10 }}>
-                <TableInfo data={trainingPointsData} />
-            </View>
+
+            {isSemesterLoading ? (
+                <Text>Loading semesters...</Text>
+            ) : (
+                <Dropdown
+                    style={styles.dropdown}
+                    labelField="label"
+                    valueField="value"
+                    value={semesterId}
+                    onChange={(item) => setSemesterId(item.value)}
+                    data={semesterOptions}
+                />
+            )}
+
+            {isLoading ? (
+                <Text>Loading training points...</Text>
+            ) : trainingPointsData && trainingPointsData.length > 0 ? (
+                <ScoreInfo data={trainingPointsData[0].scores} title="Điểm chi tiết" />
+            ) : (
+                <Text>No training points data available</Text>
+            )}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "white",
+        padding: 16,
+    },
+    dropdown: {
+        height: 50,
+        borderColor: "gray",
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+        marginBottom: 10,
+    },
+});

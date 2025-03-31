@@ -1,19 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState } from '@/store';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
-    prepareHeaders: (headers, { getState }) => {
+    baseUrl: 'http://10.0.2.2:5000',
+    prepareHeaders: async (headers) => {
       try {
-        const state = getState() as RootState;
-        const token = state.user.token;
-
+        const token = await AsyncStorage.getItem('token');
         if (token) {
-          headers.set('authorization', `Bearer ${token}`); 
+          headers.set('authorization', `Bearer ${token}`);
         }
-
+        
         return headers;
       } catch (error) {
         console.error('Error preparing headers:', error);
@@ -25,4 +24,4 @@ const apiSlice = createApi({
   endpoints: builder => ({}),
 })
 
-export default apiSlice
+export default apiSlice;

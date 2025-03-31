@@ -1,26 +1,51 @@
 import { View, Text, StyleSheet } from 'react-native';
-
+import { formatDate } from '@/utils/formatDate';
 interface TableInfoProps {
-  data?: Record<string, any>;
+  data?: {
+    id?: string;
+    name?: string;
+    gender?: string;
+    address?: string;
+    birth_date?: string;
+    class_id?: string;
+    email?: string;
+  };
   title?: string;
 }
 
 export default function TableInfo({ data = {}, title }: TableInfoProps) {
-  const entries = Object.entries(data || {});
-
+  
   return (
     <View style={styles.container}>
       {title && <Text style={styles.title}>{title}</Text>}
-      {entries.length > 0 ? (
-        entries.map(([key, value]) => (
-          <View key={key} style={styles.row}>
-            <Text style={styles.label}>{key}</Text>
-            <Text style={styles.value}>{value}</Text>
-          </View>
-        ))
-      ) : (
-        <Text style={styles.emptyText}>Không có dữ liệu</Text>
-      )}
+      <View style={styles.row}>
+        <Text style={styles.label}>Mã SV</Text>
+        <Text style={styles.value}>{data.id || '---'}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Họ tên</Text>
+        <Text style={styles.value}>{data.name || '---'}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Giới tính</Text>
+        <Text style={styles.value}>{data.gender == '1' ? 'Nữ' : 'Nam'}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Địa chỉ</Text>
+        <Text style={styles.value}>{data.address || '---'}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Ngày sinh</Text>
+        <Text style={styles.value}>{formatDate(data.birth_date || '') || '---'}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Mã số lớp</Text>
+        <Text style={styles.value}>{data.class_id || '---'}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Email</Text>
+        <Text style={styles.value}>{data.email || '---'}</Text>
+      </View>
     </View>
   );
 }
@@ -52,9 +77,5 @@ const styles = StyleSheet.create({
     color: '#333',
     fontWeight: '500',
   },
-  emptyText: {
-    textAlign: 'center',
-    color: '#666',
-    fontSize: 16,
-  },
 });
+

@@ -37,7 +37,6 @@ const handleLogin = async () => {
   setIsLoading(true);
   try {
     const response = await loginMutation({ studentId: studentId, password: password }).unwrap();
-    console.log(response);
     dispatch(setUser(response)); 
     router.push('/(authorized)/(tabs)'); 
   } catch (error) {
@@ -52,9 +51,7 @@ const handleLogin = async () => {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          headerShown: true,
-          title: 'Đăng nhập',
-          headerStyle: { backgroundColor: '#fff' },
+          headerShown: false,
         }}
       />
       

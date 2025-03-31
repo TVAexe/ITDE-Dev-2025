@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfileCard from '@/components/ProfileCard';
+import { getUser } from '@/utils/getUser';
 
 
 const ProfileScreen = () => {
+
+  const [studentName, setStudentName] = useState<string | null>(null);
+  const [studentId, setStudentId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUser();
+      setStudentName(user.name);  
+      setStudentId(user.id);
+    };
+    fetchUser();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -13,15 +27,14 @@ const ProfileScreen = () => {
       </View>
       
       <ScrollView style={styles.content}>
-        {/* Profile Card */}
         <TouchableOpacity style={styles.profileCard}>
           <Image
             source={require('@/assets/images/adaptive-icon.png')}
             style={styles.avatar}
           />
           <View style={styles.profileInfo}>
-            <Text style={styles.name}>Ninh Hải Nam</Text>
-            <Text style={styles.studentId}>26A4041649</Text>
+            <Text style={styles.name}>{studentName}</Text>
+            <Text style={styles.studentId}>{studentId}</Text>
           </View>
         </TouchableOpacity>
 
@@ -56,7 +69,7 @@ const ProfileScreen = () => {
             icon={<Ionicons name="log-out-outline" size={22} color="#dc2626" />}
             title="Đăng xuất"
             warning={true}
-            href="/(authorized)/account/StudentInfo"
+            href="/(authorized)/account/logout"
           />
         </View>
       </ScrollView>

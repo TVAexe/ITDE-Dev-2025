@@ -1,9 +1,21 @@
+import { getUser } from '@/utils/getUser';
 import { Link } from 'expo-router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
+
+  const [user, setUser] = useState<{name: string} | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    };
+    fetchUser();
+  }, []);
+
 
   const menuItems = [
     { icon: '📝', title: 'Chấm điểm rèn luyện', href: '../home/form' as const },
@@ -12,17 +24,19 @@ const HomeScreen = () => {
     
   ]
 
+
+
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Chào Ninh Hải Nam</Text>
+            <Text style={styles.greeting}>Chào {user?.name}</Text>
             <Text style={styles.subGreeting}>Chúc bạn một ngày tốt lành!</Text>
           </View>
         </View>
 
-        {/* Menu Grid Section */}
         <View style={styles.menuSection}>
           <Text style={styles.menuTitle}>Hành chính - Ngoại khóa</Text>
           <View style={styles.menuGrid}>
