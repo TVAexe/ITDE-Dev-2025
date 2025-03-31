@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.2.4"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("io.freefair.lombok") version "8.6"
 }
 
 group = "vn.ITDE"
@@ -28,6 +29,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	implementation("com.turkraft.springfilter:jpa:3.1.7")
 }
 
 tasks.withType<Test> {
