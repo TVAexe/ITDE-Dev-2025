@@ -15,9 +15,15 @@ public class Score {
     @MapsId("studentId")
     private Student student;
 
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb", nullable = false)
     private Map<String, Object> scores;
+
+    @ManyToOne
+    @MapsId("semester") // Ánh xạ với trường "semester" trong ScoreId
+    @JoinColumn(name = "semester_id", referencedColumnName = "semesterId", nullable = false)
+    private Semester semester;
 
     // Getters and setters...
 }
