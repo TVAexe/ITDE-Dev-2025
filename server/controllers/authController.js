@@ -59,9 +59,19 @@ const login = async (req, res) => {
     }
 };
 
+const getStudents = async (req, res) => {
+    try {
+        const students = await pool.query('SELECT * FROM student');
+        res.status(200).json(students.rows);
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).json({ message: "Error fetching students", error: error.message });
+    }
+}
 
 
 module.exports = {
     login,
     signup,
+    getStudents,
 };

@@ -9,8 +9,21 @@ const trainingPointsService = apiSlice.injectEndpoints({
                 method: "GET",  
             }),
         }),
+        getTraingingPointsForm: builder.query<any, void>({
+            query: () => ({
+                url: `/api/training-points/form`,
+                method: "GET",  
+            }),
+        }),
+        submitTrainingPoints: builder.mutation<any, { studentId: string, semesterId: string, score: number }>({
+            query: ({ studentId, semesterId, score }) => ({
+                url: `/api/training-points/submit`,
+                method: "POST",
+                body: { studentId, semesterId, score },
+            }),
+        }),
     }),
 });
 
-export const { useGetTrainingPointsQuery } = trainingPointsService;
+export const { useGetTrainingPointsQuery, useGetTraingingPointsFormQuery, useSubmitTrainingPointsMutation } = trainingPointsService;
 export default trainingPointsService;

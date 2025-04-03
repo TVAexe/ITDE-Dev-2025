@@ -69,11 +69,45 @@ const getCheckinCount = async (req, res) => {
     }
 }
 
+const checkoutEvent = async (req, res) => {
+    const { studentId, eventId } = req.body;
+    try {
+        const query1 = `
+            UPDATE event_parti 
+            SET checkin_count = checkin_count + 1 
+            WHERE student_id = $1 AND event_id = $2
+        `;
+        await pool.query(query1, [studentId, eventId]);
+
+        const query2 = `SELECT semester_id FROM event WHERE event_id = $1`;
+        const result = await pool.query(query2, [eventId]);
+        const semesterId = result.rows[0].semester_id;
+
+        const query3 = `
+            UPDATE score 
+            SET scores = jsonb_set(
+                scores, 
+                '{"event_score"}', 
+                to_jsonb(COALESCE((scores->>'event_score')::int, 0) + 0.5),
+                true
+            ) 
+            WHERE student_id = $1 AND semester_id = $2
+        `;
+        await pool.query(query3, [studentId, semesterId]);
+
+        return res.status(200).json({ message: "Event checked out successfully" });
+    } catch (error) {
+        console.error('Error checking out event:', error);
+        res.status(500).json({ message: "Error checking out event", error: error.message });
+    }
+};
+
 module.exports = {
     getEvents,
     getEventById,
     registerEvent,
     checkinEvent,
     getCheckinCount,
+    checkoutEvent,
 };
 

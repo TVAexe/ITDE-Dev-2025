@@ -12,6 +12,7 @@ import ScoreInfo from "@/components/ScoreInfo";
 export default function Analyst() {
     const [user, setUser] = useState<{ id: string } | null>(null);
     const [semesterId, setSemesterId] = useState<string | null>(null);
+    
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -29,8 +30,8 @@ export default function Analyst() {
 
     const semesterOptions = semesterData
         ? semesterData.map((semester: any) => ({
-              label: semester.semester_id, 
-              value: semester.semester_id,
+              label: semester.name, 
+              value: semester.id,
           }))
         : [];
 
@@ -38,6 +39,7 @@ export default function Analyst() {
         if (!semesterId && semesterOptions.length > 0) {
             setSemesterId(semesterOptions[0].value);
         }
+        console.log(semesterId);
     }, [semesterOptions]);
 
 
@@ -68,7 +70,9 @@ export default function Analyst() {
             {isLoading ? (
                 <Text>Loading training points...</Text>
             ) : trainingPointsData && trainingPointsData.length > 0 ? (
-                <ScoreInfo data={trainingPointsData[0].scores} title="Điểm chi tiết" />
+                <>
+                    <ScoreInfo data={trainingPointsData[0].scores} title="Điểm chi tiết" />
+                </>
             ) : (
                 <Text>No training points data available</Text>
             )}

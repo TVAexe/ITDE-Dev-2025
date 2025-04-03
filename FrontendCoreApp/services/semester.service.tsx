@@ -6,7 +6,7 @@ const semesterService = apiSlice.injectEndpoints({
             query: () => `/api/semester`,
         }),
         getSemesterByStudentId: builder.query<any, string>({
-            query: (studentId) => `/api/semester?studentId=${studentId}`,
+            query: (studentId) => `/api/semester/${studentId}`,
         }),
     }),
 });

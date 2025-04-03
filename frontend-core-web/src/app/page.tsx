@@ -1,11 +1,9 @@
-import Link from "next/link";
-import Navbar from "@/layouts/navbar";
+import Sidebar from "@/layouts/sidebar";
 
 export default function Home() {
   return(
     <>
-      <Navbar />
-      
+    <Sidebar />
     </>
   )
 }

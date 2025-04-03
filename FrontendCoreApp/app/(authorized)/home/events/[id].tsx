@@ -5,7 +5,8 @@ import {
     useGetCheckinCountQuery, 
     useGetEventByIdQuery, 
     useGetRegisteredEventsQuery, 
-    useRegisterEventMutation 
+    useRegisterEventMutation,
+    useCheckoutEventMutation
 } from "@/services";
 import { getUser } from "@/utils/getUser";
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ export default function EventDetails() {
     const [userId, setUserId] = useState<string | null>(null);
     const [registerEvent, { isLoading: isRegistering }] = useRegisterEventMutation();
     const [checkinEvent, { isLoading: isChecking }] = useCheckinEventMutation();
-
+    const [checkoutEvent, { isLoading: isCheckingOut }] = useCheckoutEventMutation();
     useEffect(() => {
         const fetchUser = async () => {
             const user = await getUser();
@@ -67,7 +68,7 @@ export default function EventDetails() {
             return;
         }
         if (checkinCnt === 1) {
-            await checkinEvent({ studentId: userId, eventId: id as string }).unwrap();
+            await checkoutEvent({ studentId: userId, eventId: id as string }).unwrap();
             refetch(); 
         } else {
             console.log("You have already checked in twice");

@@ -31,10 +31,24 @@ const eventsService = apiSlice.injectEndpoints({
                     body: {
                         studentId: studentId,
                         eventId: eventId,
+                        time: new Date().toISOString(),
                     },
                 };
             },
         }), 
+        checkoutEvent: builder.mutation<any, {studentId: string, eventId: string}>({
+            query: ({studentId, eventId}) => {
+                return {
+                    url: `/api/events/checkout`,
+                    method: "PUT",
+                    body: {
+                        studentId: studentId,
+                        eventId: eventId,
+                        time: new Date().toISOString(),
+                    },
+                };
+            },
+        }),
         getCheckinCount: builder.query<any, {studentId: string, eventId: string}>({
             query: ({studentId, eventId}) => {
                 return {
@@ -42,7 +56,9 @@ const eventsService = apiSlice.injectEndpoints({
                 };
             },
         }),
+
     }),
+    overrideExisting: true,
 });
 
-export const { useGetEventsQuery, useGetRegisteredEventsQuery, useGetEventByIdQuery, useRegisterEventMutation, useCheckinEventMutation, useGetCheckinCountQuery } = eventsService;
+export const { useGetEventsQuery, useGetRegisteredEventsQuery, useGetEventByIdQuery, useRegisterEventMutation, useCheckinEventMutation, useGetCheckinCountQuery, useCheckoutEventMutation } = eventsService;

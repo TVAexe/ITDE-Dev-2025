@@ -13,6 +13,7 @@ export default function Login() {
     });
 
     const data = await response.json();
+    console.log(data);
   };
 
   return (
@@ -56,7 +57,7 @@ export default function Login() {
             <a href="/forgot-password" className="text-blue-500 hover:underline">Forgot password?</a>
           </div>
           <div className="text-center mt-3">
-            <span>Don't have an account? </span>
+            <span>Dont have an account? </span>
             <a href="/register" className="text-blue-500 hover:underline">Register</a>
           </div>
         </form>
