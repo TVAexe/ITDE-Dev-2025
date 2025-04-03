@@ -20,7 +20,15 @@ public class ScoreService {
 
     public Map<String, Object> getScores(String studentId, String semester) {
         return scoreRepository.findByIdStudentIdAndIdSemester(studentId, semester)
-            .map(Score::getScores)
+            .map(score -> {
+                Map<String, Object> scores = score.getScores();
+                double total = scores.values().stream()
+                    .filter(value -> value instanceof Number)
+                    .mapToDouble(value -> ((Number) value).doubleValue())
+                    .sum();
+                scores.put("totalScore", total);
+                return scores;
+            })
             .orElse(null);
     }
 }

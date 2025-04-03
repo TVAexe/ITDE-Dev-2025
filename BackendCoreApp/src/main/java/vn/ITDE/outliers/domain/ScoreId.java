@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Embeddable
 public class ScoreId implements Serializable {
-    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "studentId")
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "student_id") // Updated name to "student_id"
     private String studentId;
 
     @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "semester_id") // Sửa từ "semester" thành "semester_id"

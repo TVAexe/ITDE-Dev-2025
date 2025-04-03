@@ -24,4 +24,14 @@ public class ScoreController {
         }
         return ResponseEntity.notFound().build();
     }
+    @GetMapping("/total_scores")
+    public ResponseEntity<Map<String, Object>> getTotalScores(
+            @RequestParam("studentId") String studentId,
+            @RequestParam("semester") String semester) { // Sửa "semesterId" thành "semester"
+        Map<String, Object> scores = scoreService.getTotalScores(studentId, semester);
+        if (scores != null) {
+            return ResponseEntity.ok(scores);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
