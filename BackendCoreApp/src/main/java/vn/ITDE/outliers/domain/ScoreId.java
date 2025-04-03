@@ -7,10 +7,10 @@ import java.util.Objects;
 
 @Embeddable
 public class ScoreId implements Serializable {
-    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "studentId")
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "student_id") // Updated name to "student_id"
     private String studentId;
 
-    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "semester")
+    @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)", name = "semester_id") // Sửa từ "semester" thành "semester_id"
     private String semester;
 
     public ScoreId() {}
@@ -20,9 +20,6 @@ public class ScoreId implements Serializable {
         this.semester = semester;
     }
 
-    // Getters and setters...
-
-
     public String getStudentId() {
         return studentId;
     }
@@ -31,15 +28,13 @@ public class ScoreId implements Serializable {
         this.studentId = studentId;
     }
 
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
     public String getSemester() {
         return semester;
     }
 
-
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,7 +42,7 @@ public class ScoreId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         ScoreId scoreId = (ScoreId) o;
         return Objects.equals(studentId, scoreId.studentId) &&
-                Objects.equals(semester, scoreId.semester);
+               Objects.equals(semester, scoreId.semester);
     }
 
     @Override
