@@ -31,4 +31,15 @@ public class ScoreService {
             })
             .orElse(null);
     }
+
+    public Score appendSelfScoreAndReturn(String studentId, String semester, float selfScore) {
+        return scoreRepository.findByIdStudentIdAndIdSemester(studentId, semester)
+            .map(score -> {
+                Map<String, Object> scores = score.getScores();
+                scores.put("self_score", selfScore); // Add self_score as a new key
+                score.setScores(scores);
+                return scoreRepository.save(score); // Save and return the updated Score
+            })
+            .orElse(null);
+    }
 }

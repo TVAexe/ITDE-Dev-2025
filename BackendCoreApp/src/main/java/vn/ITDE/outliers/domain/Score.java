@@ -14,7 +14,7 @@ public class Score {
 
     @ManyToOne
     @MapsId("studentId")
-    @JoinColumn(name = "student_id") // Updated name to "student_id"
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @JdbcTypeCode(SqlTypes.JSON)
