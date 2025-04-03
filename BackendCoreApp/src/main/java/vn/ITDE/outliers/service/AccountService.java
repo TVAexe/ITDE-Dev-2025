@@ -67,6 +67,8 @@ public class AccountService {
         return this.accountRepository.findById(username).orElse(null);
     }
 
-    
+    public boolean existsByUsername(String username) {
+        return this.accountRepository.existsById(username);
+    }
     
 }

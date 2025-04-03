@@ -25,8 +25,6 @@ import com.nimbusds.jose.util.Base64;
 
 import vn.ITDE.outliers.ultil.SecurityUtil;
 
-
-
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
@@ -44,18 +42,13 @@ public class SecurityConfiguration {
             HttpSecurity http,
             CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
         http
-                .csrf(c -> c.disable())
+                .csrf(c -> c.disable()) // Ensure CSRF is disabled for APIs
                 .authorizeHttpRequests(
                         authz -> authz
-                                .requestMatchers("/", "/login","/api/v1/accounts/create").permitAll()
+                                .requestMatchers("/", "/login", "/api/v1/accounts/create").permitAll() // Allow public access
                                 .anyRequest().authenticated())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(customAuthenticationEntryPoint))
-                // .exceptionHandling(
-                //         exceptions -> exceptions
-                //                 .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // 401
-                //                 .accessDeniedHandler(new BearerTokenAccessDeniedHandler())) // 403
-
                 .formLogin(f -> f.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
