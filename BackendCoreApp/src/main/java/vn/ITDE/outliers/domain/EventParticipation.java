@@ -5,6 +5,11 @@ import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "event_parti")
 public class EventParticipation {
@@ -27,4 +32,5 @@ public class EventParticipation {
     @Column
     private short checkin_count;
     // Getters and setters...
+    
 }

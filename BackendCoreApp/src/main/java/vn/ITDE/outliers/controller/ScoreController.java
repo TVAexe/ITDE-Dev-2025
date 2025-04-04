@@ -28,7 +28,7 @@ public class ScoreController {
     public ResponseEntity<Map<String, Object>> getTotalScores(
             @RequestParam("studentId") String studentId,
             @RequestParam("semester") String semester) { // Sửa "semesterId" thành "semester"
-        Map<String, Object> scores = scoreService.getTotalScores(studentId, semester);
+        Map<String, Object> scores = scoreService.getScores(studentId, semester);
         if (scores != null) {
             return ResponseEntity.ok(scores);
         }

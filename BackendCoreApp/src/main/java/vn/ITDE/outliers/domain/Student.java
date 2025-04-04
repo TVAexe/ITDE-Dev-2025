@@ -3,6 +3,11 @@ package vn.ITDE.outliers.domain;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "student")
 public class Student {
