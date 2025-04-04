@@ -21,7 +21,7 @@ import vn.ITDE.outliers.service.AccountService;
 import vn.ITDE.outliers.domain.Account;
 
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/accounts")
 public class AccountController {
     private final AccountService accountService;
     private final PasswordEncoder passwordEncoder;
