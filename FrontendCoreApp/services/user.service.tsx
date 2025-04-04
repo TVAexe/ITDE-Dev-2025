@@ -29,7 +29,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
           console.error('Error saving token:', error);
         }
       },
-      invalidatesTags: ['User'],
     }),
 
     logout: builder.mutation<any, void>({
@@ -37,7 +36,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: '/api/auth/logout',
         method: 'POST',
       }),
-      invalidatesTags: ['User'],
     }),
 
     getUserInfo: builder.query({
@@ -51,14 +49,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['User'],
     }),
 
     getUsers: builder.query({
       query: ({ page }) => `/api/user?page=${page}`,
       providesTags: (result) =>
         result
-          ? [...result.data.users.map(({ _id }) => ({ type: 'User', id: _id })), 'User']
+          ? [...result.data.users.map(({ _id }: { _id: string }) => ({ type: 'User', id: _id })), 'User']
           : ['User'],
     }),
 
@@ -68,7 +65,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body,
       }),
-      invalidatesTags: (_, __, arg) => [{ type: 'User', id: arg.body._id }],
     }),
 
     deleteUser: builder.mutation({
@@ -76,7 +72,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `/api/user/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['User'],
     }),
 
     registFace: builder.mutation({

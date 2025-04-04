@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Stack } from "expo-router";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, ActivityIndicator, Text, StyleSheet } from "react-native";
 import EventInfo from "@/components/EventInfo";
 import { useGetEventsQuery, useGetRegisteredEventsQuery } from "@/services";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import LoadingIndicator from "@/components/LoadingIndicator";
 const Tab = createMaterialTopTabNavigator();
 
 function AllRecords() {
-    const { data: eventsData } = useGetEventsQuery();
+    const { data: eventsData, isLoading } = useGetEventsQuery();
+
+    if (isLoading) return <LoadingIndicator />
+
+    
     return (
         <ScrollView style={{ flex: 1, padding: 10 }}>
             <EventInfo data={eventsData} />
@@ -31,13 +35,15 @@ function RegisteredRecords() {
         fetchUser();
     }, []);
 
-    const { data: registeredEventsData, refetch: refetchRegisteredEvents } = useGetRegisteredEventsQuery(userId || "", {
+    const { data: registeredEventsData, refetch: refetchRegisteredEvents, isLoading } = useGetRegisteredEventsQuery(userId || "", {
         skip: !userId,
     });
 
+    if (isLoading) return <LoadingIndicator />
+
     return (
         <ScrollView style={{ flex: 1, padding: 10 }}>
-            <EventInfo data={registeredEventsData} onRefresh={refetchRegisteredEvents} />
+            <EventInfo data={registeredEventsData} />
         </ScrollView>
     );
 }
@@ -58,3 +64,15 @@ export default function Events() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    loadingContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    loadingText: {
+        fontSize: 16,
+        color: "#007AFF",
+    },
+});

@@ -1,20 +1,30 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-
 interface ScoreInfoProps {
   data?: Record<string, any>;
   title?: string;
 }
 
 export default function ScoreInfo({ data = {}, title }: ScoreInfoProps) {
-  const entries = Object.entries(data || {});
+  const fieldsToDisplay = ['event_score', 'club_score', 'nckh_score', 'self_score', 'total_score'];
+
+  const fieldLabels: Record<string, string> = {
+    event_score: 'Điểm sự kiện',
+    club_score: 'Điểm CLB',
+    nckh_score: 'Điểm NCKH',
+    self_score: 'Điểm tự chấm',
+    total_score: 'Điểm học tập',
+  };
+
+  const filteredEntries = Object.entries(data || {}).filter(([key]) => fieldsToDisplay.includes(key));
+
   return (
     <View style={styles.container}>
       {title && <Text style={styles.title}>{title}</Text>}
-      {entries.length > 0 ? (
-        entries.map(([key, value]) => (
+      {filteredEntries.length > 0 ? (
+        filteredEntries.map(([key, value]) => (
           <View key={key} style={styles.row}>
-            <Text style={styles.label}>{key}</Text>
+            <Text style={styles.label}>{fieldLabels[key] || key}</Text>
             <Text style={styles.value}>{String(value)}</Text>
           </View>
         ))

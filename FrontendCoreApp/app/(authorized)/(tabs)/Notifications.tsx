@@ -4,7 +4,7 @@ export default function Notifications() {
     const token = AsyncStorage.getItem('token');
     return (
         <View>
-            <Text>Notifications</Text>
+            <Text>Notifications a</Text>
         </View>
     )
 }

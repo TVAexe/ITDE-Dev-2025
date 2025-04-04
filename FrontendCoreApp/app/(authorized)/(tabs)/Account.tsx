@@ -53,7 +53,7 @@ const ProfileScreen = () => {
           <ProfileCard 
             icon={<Ionicons name="school-outline" size={22} color="#dc2626" />}
             title="Sinh viên cần biết"
-            href="/(authorized)/account/StudentInfo"
+            href="/(authorized)/account/FAQ"
           />
           <ProfileCard 
             icon={<Ionicons name="chatbox-outline" size={22} color="#dc2626" />}

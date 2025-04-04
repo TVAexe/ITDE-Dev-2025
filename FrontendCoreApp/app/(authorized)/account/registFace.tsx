@@ -20,7 +20,7 @@ export default function App() {
   const [facing, setFacing] = useState<CameraType>("back");
   const [recording, setRecording] = useState(false);
 
-  // Request Media Library Permission
+
   useEffect(() => {
     if (!mediaPermission?.granted) {
       requestMediaPermission();
@@ -40,7 +40,7 @@ export default function App() {
     );
   }
 
-  // Function to take a picture and save it to the gallery
+
   const takePicture = async () => {
     if (!ref.current) return;
 
@@ -50,19 +50,18 @@ export default function App() {
       console.log("Photo taken:", photo?.uri);
       
       if (photo?.uri) {
-        // Save to Media Library (Gallery)
         const asset = await MediaLibrary.createAssetAsync(photo.uri);
-        await MediaLibrary.createAlbumAsync("Camera", asset, false); // Create an album if doesn't exist
+        await MediaLibrary.createAlbumAsync("Camera", asset, false); 
         alert("Photo saved to gallery!");
-        setUri(photo.uri); // Set the URI to display the picture
-        setSavedUri(photo.uri); // Store the saved URI
+        setUri(photo.uri); 
+        setSavedUri(photo.uri); 
       }
     } catch (error) {
       console.error("Error taking picture:", error);
     }
   };
 
-  // Render captured picture or camera view
+
   const renderPicture = () => (
     <View>
       <Image
@@ -74,7 +73,7 @@ export default function App() {
     </View>
   );
 
-  // Camera view with buttons for switching mode, facing, etc.
+
   const renderCamera = () => (
     <CameraView style={styles.camera} ref={ref} mode={mode} facing={facing}>
       <View style={styles.shutterContainer}>
@@ -109,12 +108,12 @@ export default function App() {
     </CameraView>
   );
 
-  // Toggle between picture and video mode
+
   const toggleMode = () => {
     setMode((prev) => (prev === "picture" ? "video" : "picture"));
   };
 
-  // Toggle between front and back camera
+
   const toggleFacing = () => {
     setFacing((prev) => (prev === "back" ? "front" : "back"));
   };

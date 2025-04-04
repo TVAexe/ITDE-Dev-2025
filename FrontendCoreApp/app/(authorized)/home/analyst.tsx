@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { Dropdown } from "react-native-element-dropdown";
 import ScoreInfo from "@/components/ScoreInfo";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 export default function Analyst() {
     const [user, setUser] = useState<{ id: string } | null>(null);
@@ -39,7 +40,6 @@ export default function Analyst() {
         if (!semesterId && semesterOptions.length > 0) {
             setSemesterId(semesterOptions[0].value);
         }
-        console.log(semesterId);
     }, [semesterOptions]);
 
 
@@ -47,15 +47,14 @@ export default function Analyst() {
         user?.id && semesterId ? { studentId: user.id, semesterId } : skipToken
     );
 
-
-    if (!user) return <Text>Loading user info...</Text>;
+    if (!user) return <Text>Đang tải thông tin sinh viên...</Text>;
 
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: "Kết quả rèn luyện" }} />
 
             {isSemesterLoading ? (
-                <Text>Loading semesters...</Text>
+                <LoadingIndicator />
             ) : (
                 <Dropdown
                     style={styles.dropdown}
@@ -68,13 +67,13 @@ export default function Analyst() {
             )}
 
             {isLoading ? (
-                <Text>Loading training points...</Text>
+                <LoadingIndicator />
             ) : trainingPointsData && trainingPointsData.length > 0 ? (
                 <>
                     <ScoreInfo data={trainingPointsData[0].scores} title="Điểm chi tiết" />
                 </>
             ) : (
-                <Text>No training points data available</Text>
+                <Text>Không có dữ liệu điểm rèn luyện</Text>
             )}
         </View>
     );

@@ -12,12 +12,9 @@ import {
   Image,
   Alert
 } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
 import { Stack, router } from 'expo-router';
 import { useAppDispatch } from '@/store/hooks';
 import { setUser } from '@/store/slices/userSlice';
-import apiSlice from '@/services/api';
 import { useLoginMutation } from '@/services';
 export default function LoginScreen(): ReactNode {
   const [studentId, setStudentId] = useState('');
@@ -58,6 +55,7 @@ const handleLogin = async () => {
       <View style={styles.form}>
         <Text style={styles.title}>Chào mừng bạn!</Text>
         <Text style={styles.subtitle}>Đăng nhập để tiếp tục</Text>
+        <Image source={require('@/assets/images/logo.png')} style={styles.logo} />
         
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Mã sinh viên</Text>
@@ -167,5 +165,11 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     color: '#dc2626',
     fontSize: 14,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+    marginBottom: 20
   },
 });

@@ -6,17 +6,18 @@ import { useEffect, useState } from "react";
 
 export default function StudentInfo() {
     const [user, setUser] = useState(null);
-    
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
             const user = await getUser();
             setUser(user);
+            setIsLoading(false);
         };
         fetchUser();
     }, []);
 
-    if (!user) {
+    if (isLoading) {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#007AFF" />
@@ -31,7 +32,7 @@ export default function StudentInfo() {
             
             <View style={styles.card}>
                 <Text style={styles.title}>Thông tin sinh viên</Text>
-                <TableInfo data={user} />
+                <TableInfo data={user || {}} />
             </View>
 
             <View style={styles.section}>

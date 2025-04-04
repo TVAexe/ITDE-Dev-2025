@@ -31,7 +31,7 @@ const eventsService = apiSlice.injectEndpoints({
                     body: {
                         studentId: studentId,
                         eventId: eventId,
-                        time: new Date().toISOString(),
+                        time: new Date().toISOString()
                     },
                 };
             },
@@ -44,7 +44,7 @@ const eventsService = apiSlice.injectEndpoints({
                     body: {
                         studentId: studentId,
                         eventId: eventId,
-                        time: new Date().toISOString(),
+                        time: new Date().toISOString()
                     },
                 };
             },

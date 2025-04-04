@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import MenuItem from "@/components/MenuItem";
 import { Stack } from "expo-router";
 import { useGetTraingingPointsFormQuery } from "@/services/trainingpoints.service";
+import LoadingIndicator from "@/components/LoadingIndicator";
+
 export default function HomeForm() {
   const [form, setForm] = useState<any>(null);
-  const { data: formData, isLoading: isLoadingForm } = useGetTraingingPointsFormQuery();
-
+  const { data: formData, isLoading } = useGetTraingingPointsFormQuery();
 
   useEffect(() => {
     if (formData) {
@@ -16,9 +17,7 @@ export default function HomeForm() {
 
   return (
 
-
-
-    <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -26,12 +25,33 @@ export default function HomeForm() {
           headerStyle: { backgroundColor: "#fff" },
         }}
       />
-      <ScrollView style={{ padding: 20 }}>
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <ScrollView style={{ padding: 20 }}>
         {form?.map((item: any) => (
           <MenuItem key={item.semester_id} semesterId={item.semester_id} title={`Form tự đánh giá điểm rèn luyện ${item.semester_id}`} />
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      )}
     </View>
-    
+
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    fontSize: 16,
+    color: "#007AFF",
+  },
+});
+
