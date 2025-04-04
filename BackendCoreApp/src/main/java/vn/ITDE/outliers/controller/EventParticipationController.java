@@ -11,6 +11,7 @@ import vn.ITDE.outliers.domain.Student;
 import vn.ITDE.outliers.repository.EventPartiRepository;
 import vn.ITDE.outliers.repository.EventDetailsRepository;
 import vn.ITDE.outliers.repository.StudentRepository;
+import vn.ITDE.outliers.domain.dto.StudentDTO;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,8 +48,8 @@ public class EventParticipationController {
 
     // GET: Get registered events for a student
     @GetMapping("/registered")
-    public ResponseEntity<List<String>> getRegisteredEvents(@RequestParam String studentId) {
-        List<String> eventIds = eventPartiRepository.findEventIdsByStudentId(studentId);
+    public ResponseEntity<List<String>> getRegisteredEvents(@RequestBody StudentDTO studentId) {
+        List<String> eventIds = eventPartiRepository.findEventIdsByStudentId(studentId.getStudentId());
         return ResponseEntity.ok(eventIds);
     }
 
