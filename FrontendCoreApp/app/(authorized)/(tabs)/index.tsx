@@ -62,16 +62,17 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#007398',
+    color: '#fff'
   },
   greeting: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fff',
   },
   subGreeting: {
     fontSize: 16,
-    color: '#666',
+    color: '#fff',
     marginTop: 4,
   },
   eventsSection: {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   menuTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#333',
     marginBottom: 16,
@@ -129,8 +130,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   menuItem: {
-    width: '30%',
-    backgroundColor: '#fff',
+    width: '32%',
+    backgroundColor: '#c1e0ea',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   menuItemText: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#333',
     textAlign: 'center',
   },

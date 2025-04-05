@@ -51,7 +51,7 @@ export default function Analyst() {
 
     return (
         <View style={styles.container}>
-            <Stack.Screen options={{ title: "Kết quả rèn luyện" }} />
+            <Stack.Screen options={{ title: "Kết quả rèn luyện", headerStyle: { backgroundColor: "#007398" }, headerTintColor: '#fff' }} />
 
             {isSemesterLoading ? (
                 <LoadingIndicator />

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
+import { Stack } from "expo-router";
 
 const FAQ_DATA = [
   { id: "1", question: "What is Viral Pitch?", answer: "Viral Pitch is a platform for influencers and brands." },
@@ -12,7 +13,7 @@ const FAQ_DATA = [
   { id: "6", question: "How to know status of a campaign?", answer: "Check the 'My Campaigns' section for updates." }
 ];
 
-const FAQItem = ({ item }) => {
+const FAQItem = ({ item }: { item: any }) => {
   const [expanded, setExpanded] = useState(false);
   const height = useSharedValue(0);
   const opacity = useSharedValue(0);
@@ -44,6 +45,7 @@ const FAQItem = ({ item }) => {
 export default function FAQ() {
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ title: "FAQ", headerStyle: { backgroundColor: "#007398" }, headerTintColor: '#fff' }} />
       <Text style={styles.title}>FAQ</Text>
       <FlatList
         data={FAQ_DATA}
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#e4ecf9",
   },
   title: {
     fontSize: 20,

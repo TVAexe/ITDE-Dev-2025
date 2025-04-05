@@ -51,11 +51,12 @@ function RegisteredRecords() {
 export default function Events() {
     return (
         <View style={{ flex: 1 }}>
-            <Stack.Screen options={{ title: "Sự kiện" }} />
+            <Stack.Screen options={{ title: "Sự kiện", headerStyle: { backgroundColor: "#007398" }, headerTintColor: '#fff' }} />
             <Tab.Navigator
                 screenOptions={{
                     tabBarLabelStyle: { fontSize: 14, fontWeight: "bold" },
                     tabBarIndicatorStyle: { backgroundColor: "blue" },
+                    tabBarStyle: { backgroundColor: "#e4ecf9" },
                 }}
             >
                 <Tab.Screen name="Tất cả" component={AllRecords} />

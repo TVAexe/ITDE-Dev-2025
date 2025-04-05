@@ -28,8 +28,7 @@ export default function StudentInfo() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Stack.Screen options={{ title: 'Thông tin sinh viên' }} />
-            
+            <Stack.Screen options={{ title: 'Thông tin sinh viên', headerStyle: { backgroundColor: "#007398" }, headerTintColor: '#fff' }} />
             <View style={styles.card}>
                 <Text style={styles.title}>Thông tin sinh viên</Text>
                 <TableInfo data={user || {}} />

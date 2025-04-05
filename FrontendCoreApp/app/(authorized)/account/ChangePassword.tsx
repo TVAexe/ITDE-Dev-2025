@@ -13,9 +13,9 @@ const ChangePassword: React.FC = () => {
           headerShown: true,
           title: "Đổi mật khẩu",
           headerStyle: {
-            backgroundColor: '#fff'
+            backgroundColor: '#007398'
           },
-          headerTintColor: '#000'
+          headerTintColor: '#fff'
         }}
       />
 

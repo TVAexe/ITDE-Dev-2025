@@ -22,7 +22,8 @@ export default function HomeForm() {
         options={{
           headerShown: true,
           title: "Chấm điểm rèn luyện",
-          headerStyle: { backgroundColor: "#fff" },
+          headerStyle: { backgroundColor: "#007398" },
+          headerTintColor: '#fff',
         }}
       />
       {isLoading ? (

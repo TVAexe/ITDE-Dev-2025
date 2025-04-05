@@ -55,9 +55,9 @@ export default function EventDetails() {
 
     const handleCheckinFirstTime = async () => {
         if (!userId || checkinCnt !== 0) return;
-        openCamera();
-        await checkinEvent({ studentId: userId, eventId: id as string }).unwrap();
-        refetch();
+        router.push(`/home/events/camera/${id}`);
+        // await checkinEvent({ studentId: userId, eventId: id as string }).unwrap();
+        // refetch();
     };
 
     const handleCheckinSecondTime = async () => {
@@ -81,7 +81,7 @@ export default function EventDetails() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Stack.Screen options={{ title: "Event Details" }} />
+            <Stack.Screen options={{ title: "Event Details", headerStyle: { backgroundColor: "#007398" }, headerTintColor: '#fff' }} />
 
             <Text style={styles.title}>{event?.name}</Text>
             <Text style={styles.description}>{event?.description}</Text>

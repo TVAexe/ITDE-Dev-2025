@@ -6,7 +6,7 @@ import { router } from "expo-router";
 
 const ProfileCard = ({ icon, title, color = '#dc2626', warning = false, href }: { icon: any, title: any, color?: string, warning?: boolean, href?: string }) => (
   
-    <TouchableOpacity style={styles.profileCard} onPress={() => router.push(href)}>
+    <TouchableOpacity style={styles.profileCard} onPress={() => router.push(href as any)}>
       <View style={styles.profileCardLeft}>
         <View style={[styles.iconContainer, warning && styles.warningIcon]}>
           {icon}
@@ -25,6 +25,7 @@ const ProfileCard = ({ icon, title, color = '#dc2626', warning = false, href }: 
       borderBottomWidth: 1,
       borderBottomColor: '#f0f0f0',
       justifyContent: 'space-between',
+      backgroundColor: '#c9e6f0',
     },
     profileCardLeft: {
       flexDirection: 'row',

@@ -23,15 +23,16 @@ const eventsService = apiSlice.injectEndpoints({
                 };
             },
         }),
-        checkinEvent: builder.mutation<any, {studentId: string, eventId: string}>({
-            query: ({studentId, eventId}) => {
+        checkinEvent: builder.mutation<any, {studentId: string, eventId: string, image: string}>({
+            query: ({studentId, eventId, image}) => {
                 return {
                     url: `/api/events/checkin`,
                     method: "PUT",
                     body: {
                         studentId: studentId,
                         eventId: eventId,
-                        time: new Date().toISOString()
+                        time: new Date().toISOString(),
+                        image: image
                     },
                 };
             },
