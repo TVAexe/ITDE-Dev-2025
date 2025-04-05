@@ -6,6 +6,11 @@ import org.hibernate.type.SqlTypes;
 
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "score")
 public class Score {
