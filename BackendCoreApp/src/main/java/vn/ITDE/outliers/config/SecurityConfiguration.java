@@ -45,7 +45,7 @@ public class SecurityConfiguration {
                 .csrf(c -> c.disable()) // Ensure CSRF is disabled for APIs
                 .authorizeHttpRequests(
                         authz -> authz
-                                .requestMatchers("/", "/login", "/api/v1/accounts/create").permitAll() // Allow public access
+                                .requestMatchers("/", "/login","accounts/create").permitAll()
                                 .anyRequest().authenticated())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(customAuthenticationEntryPoint))

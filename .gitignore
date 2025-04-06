@@ -37,3 +37,4 @@ out/
 .vscode/
 CoreAI/__pycache__/*
 ./FrontendCoreApp/node_modules/*
+./BackendCoreApp/src/main/resources/application.properties

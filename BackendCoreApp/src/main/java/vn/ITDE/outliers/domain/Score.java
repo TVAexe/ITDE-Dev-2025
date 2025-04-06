@@ -3,8 +3,14 @@ package vn.ITDE.outliers.domain;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "score")
 public class Score {
@@ -13,42 +19,18 @@ public class Score {
 
     @ManyToOne
     @MapsId("studentId")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb", nullable = false)
     private Map<String, Object> scores;
 
-    // Remove the incorrect relationship with String
-    // The semester is already part of the ScoreId
-
-    // Getters and setters...
+    @ManyToOne
+    @MapsId("semester") // Tên trường trong ScoreId
+    @JoinColumn(name = "semester_id", referencedColumnName = "semesterId", nullable = false) // Sửa name thành "semester_id"
+    private Semester semester;
     
-    public ScoreId getId() {
-        return id;
-    }
-    
-    public void setId(ScoreId id) {
-        this.id = id;
-    }
-    
-    public Student getStudent() {
-        return student;
-    }
-    
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-    
-    public Map<String, Object> getScores() {
-        return scores;
-    }
-    
-    public void setScores(Map<String, Object> scores) {
-        this.scores = scores;
-    }
-    
-    // Helper methods to access semester from the id
     public String getSemester() {
         return id != null ? id.getSemester() : null;
     }

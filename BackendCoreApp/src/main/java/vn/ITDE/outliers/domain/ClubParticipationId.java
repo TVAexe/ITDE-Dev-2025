@@ -5,6 +5,12 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Embeddable
 public class ClubParticipationId implements Serializable {
     @Column(length = 32, nullable = false, columnDefinition = "VARCHAR(32)")

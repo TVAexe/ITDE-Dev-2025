@@ -2,10 +2,10 @@ package vn.ITDE.outliers.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import vn.ITDE.outliers.domain.Score;
 import vn.ITDE.outliers.domain.ScoreId;
+
 public interface ScoreRepository extends JpaRepository<Score, ScoreId> {
-    // Update method to match the entity structure
     Optional<Score> findByIdStudentIdAndIdSemester(String studentId, String semesterId);
+    
 }
