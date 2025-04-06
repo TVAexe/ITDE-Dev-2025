@@ -27,8 +27,7 @@ public class AccountDeatilsCustom implements UserDetailsService {
         return new User(
                 account.getUsername(),
                 account.getPassword(),
-                
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + account.getRole())));
 
     }
 

@@ -32,9 +32,21 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Account> createNewAccount(@RequestBody Account postManAccount) {
+    public ResponseEntity<?> createNewAccount(@RequestBody Account postManAccount) {
+        // Check if username already exists
+        Account existingAccount = this.accountService.handleGetAccountByUsername(postManAccount.getUsername());
+        if (existingAccount != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
+        }
+        
         String hashPassword = this.passwordEncoder.encode(postManAccount.getPassword());
         postManAccount.setPassword(hashPassword);
+        
+        // Make sure role is set - default to USER if none provided
+        if (postManAccount.getRole() == 0) { // Assuming 0 is the default value for short
+            postManAccount.setRole((short) 1); // Assuming 1 represents "USER" in your system
+        }
+        
         Account newAccount = this.accountService.handleCreateAccount(postManAccount);
         return ResponseEntity.status(HttpStatus.CREATED).body(newAccount);
     }

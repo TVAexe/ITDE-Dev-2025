@@ -30,37 +30,8 @@ public class Score {
     @MapsId("semester") // Tên trường trong ScoreId
     @JoinColumn(name = "semester_id", referencedColumnName = "semesterId", nullable = false) // Sửa name thành "semester_id"
     private Semester semester;
-
-    // Getters and setters
-    public ScoreId getId() {
-        return id;
-    }
-
-    public void setId(ScoreId id) {
-        this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Map<String, Object> getScores() {
-        return scores;
-    }
-
-    public void setScores(Map<String, Object> scores) {
-        this.scores = scores;
-    }
-
-    public Semester getSemester() {
-        return semester;
-    }
-
-    public void setSemester(Semester semester) {
-        this.semester = semester;
+    
+    public String getSemester() {
+        return id != null ? id.getSemester() : null;
     }
 }

@@ -6,6 +6,6 @@ import vn.ITDE.outliers.domain.Score;
 import vn.ITDE.outliers.domain.ScoreId;
 
 public interface ScoreRepository extends JpaRepository<Score, ScoreId> {
-    Optional<Score> findByIdStudentIdAndIdSemester(String studentId, String semester);
+    Optional<Score> findByIdStudentIdAndIdSemester(String studentId, String semesterId);
     
 }
