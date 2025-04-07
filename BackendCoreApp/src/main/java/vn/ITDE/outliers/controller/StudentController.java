@@ -1,27 +1,30 @@
 package vn.ITDE.outliers.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import vn.ITDE.outliers.domain.Score;
+import org.springframework.web.bind.annotation.*;
+import vn.ITDE.outliers.domain.Student;
 import vn.ITDE.outliers.service.StudentService;
+import vn.ITDE.outliers.domain.dto.StudentDTO;
 
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/student")
 public class StudentController {
-    private final StudentService studentService;
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
-    @GetMapping("/students/{studentId}/{semesterId}")
-    public ResponseEntity<?> getScoreStudentById(
-            @PathVariable String studentId,
-            @PathVariable String semesterId) {
-        try {
-            Score score = studentService.getStudentScore(studentId, semesterId);
-            return ResponseEntity.ok(score);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body("Score not found for studentId: " 
-                + studentId + " and semesterId: " + semesterId);
+    @Autowired
+    private StudentService studentService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDTO> getStudentById(@PathVariable String id) {
+        Optional<Student> studentOptional = studentService.getStudentById(id);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            StudentDTO studentDTO = new StudentDTO(student.getId(), student.getName(), student.getBirthDate(),
+                    student.getGender(), student.getAddress(), student.getEmail(), student.getPosition(), student.getImage());
+            return ResponseEntity.ok(studentDTO);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

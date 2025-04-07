@@ -1,17 +1,18 @@
 package vn.ITDE.outliers.service;
 
-import vn.ITDE.outliers.domain.Score;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import vn.ITDE.outliers.domain.Student;
-import vn.ITDE.outliers.repository.ScoreRepository;
+import vn.ITDE.outliers.repository.StudentRepository;
 
+import java.util.Optional;
+
+@Service
 public class StudentService {
-    private final ScoreRepository studentRepository;
-    public StudentService(ScoreRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
-    
-    public Score getStudentScore(String studentId, String semester) {
-        return studentRepository.findByIdStudentIdAndIdSemester(studentId, semester)
-            .orElseThrow(() -> new RuntimeException("Score not found"));
+    @Autowired
+    private StudentRepository studentRepository;
+
+    public Optional<Student> getStudentById(String id) {
+        return studentRepository.findById(id);
     }
 }
