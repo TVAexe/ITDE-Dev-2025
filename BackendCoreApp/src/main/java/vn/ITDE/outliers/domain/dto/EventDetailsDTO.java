@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 public class EventDetailsDTO {
+    private String eventId;
     private String name;
     private String organizingUnit;
     private String description;
@@ -14,15 +15,14 @@ public class EventDetailsDTO {
     private String location;
     private short participationMethod;
     private short status;
-    private short semesterNumber;
-    private short semesterYear;
-    private LocalDateTime semesterStartTime;
-    private LocalDateTime semesterEndTime;
+    private String semesterId;
+    
 
-    public EventDetailsDTO(String name, String organizingUnit, String description, LocalDateTime startTime,
+    public EventDetailsDTO(String eventId,String name, String organizingUnit, String description, LocalDateTime startTime,
                        LocalDateTime endTime, String location, short participationMethod, short status,
-                       short semesterNumber, short semesterYear, LocalDateTime semesterStartTime, LocalDateTime semesterEndTime) {
+                       String semesterId) {
     this.name = name;
+    this.eventId = eventId;
     this.organizingUnit = organizingUnit;
     this.description = description;
     this.startTime = startTime;
@@ -30,9 +30,6 @@ public class EventDetailsDTO {
     this.location = location;
     this.participationMethod = participationMethod;
     this.status = status;
-    this.semesterNumber = semesterNumber;
-    this.semesterYear = semesterYear;
-    this.semesterStartTime = semesterStartTime;
-    this.semesterEndTime = semesterEndTime;
+    this.semesterId=semesterId;
 }
 }
