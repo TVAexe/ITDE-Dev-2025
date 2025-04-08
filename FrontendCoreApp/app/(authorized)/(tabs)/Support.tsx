@@ -1,0 +1,85 @@
+import React from "react";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Alert } from "react-native";
+
+export default function CTSVSupport() {
+    const handleEmailPress = () => {
+        const email = "hotronguoihoc@hvnh.edu.vn";
+        const subject = "Liên hệ phòng CTSV";
+        const body = "Xin chào phòng Công tác sinh viên,\n\nTôi là [Họ tên] - MSSV: [Mã số sinh viên],\nTôi muốn hỏi về vấn đề...";
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        Linking.openURL(mailtoUrl).catch(() => {
+            Alert.alert("Lỗi", "Không thể mở ứng dụng email.");
+        });
+    };
+
+    return (
+        <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.title}>Liên hệ phòng CTSV</Text>
+            <Text style={styles.description}>
+                Nếu bạn cần hỗ trợ về học vụ, hoạt động sinh viên, hay các vấn đề liên quan đến nhà trường, vui lòng liên hệ phòng Công tác sinh viên.
+            </Text>
+
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>📨 Gửi Email đến phòng CTSV</Text>
+                <TouchableOpacity style={styles.button} onPress={handleEmailPress}>
+                    <Text style={styles.buttonText}>Gửi Email</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>📞 Thông tin liên hệ</Text>
+                <Text>Email: hotronguoihoc@hvnh.edu.vn</Text>
+                <Text>Điện thoại: (028) 1234 5678</Text>
+                <Text>Giờ làm việc: Thứ 2 - Thứ 6, từ 8h00 đến 17h00</Text>
+            </View>
+
+            <View style={styles.footer}>
+                <Text>Phòng CTSV luôn sẵn sàng hỗ trợ bạn!</Text>
+            </View>
+        </ScrollView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+        backgroundColor: "#fff",
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 10,
+        color: "#2c3e50",
+    },
+    description: {
+        fontSize: 16,
+        marginBottom: 20,
+        color: "#34495e",
+    },
+    section: {
+        marginBottom: 30,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: "600",
+        marginBottom: 10,
+    },
+    button: {
+        backgroundColor: "#27ae60",
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        alignSelf: "flex-start",
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "600",
+    },
+    footer: {
+        paddingTop: 20,
+        borderTopWidth: 1,
+        borderColor: "#ccc",
+    },
+});
