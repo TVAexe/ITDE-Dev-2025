@@ -15,8 +15,8 @@ import java.util.List;
 public interface EventPartiRepository extends JpaRepository<EventParticipation, EventParticipationId> {
 
     @Query("SELECT new vn.ITDE.outliers.domain.dto.EventDetailsDTO(" +
-       "e.name, e.organizingUnit, e.description, e.startTime, e.endTime, e.location, " +
-       "e.participationMethod, e.status, s.number, s.year, s.startTime, s.endTime) " +
+       "e.id, e.name, e.organizingUnit, e.description, e.startTime, e.endTime, e.location, " +
+       "e.participationMethod, e.status, s.id) " +
        "FROM EventDetails e " +
        "JOIN e.semester s " +
        "JOIN EventParticipation ep ON e.id = ep.event.id " +
