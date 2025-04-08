@@ -17,6 +17,7 @@ public class StudentDTO {
     private String email;
     private short position;
     private String image;
+    private String classId;
 
     public String getStudentId() {
         return id;

@@ -21,7 +21,7 @@ public class StudentController {
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
             StudentDTO studentDTO = new StudentDTO(student.getId(), student.getName(), student.getBirthDate(),
-                    student.getGender(), student.getAddress(), student.getEmail(), student.getPosition(), student.getImage());
+                    student.getGender(), student.getAddress(), student.getEmail(), student.getPosition(), student.getImage(), student.getClassInfo().getId());
             return ResponseEntity.ok(studentDTO);
         } else {
             return ResponseEntity.notFound().build();
