@@ -11,15 +11,15 @@ const trainingPointsService = apiSlice.injectEndpoints({
         }),
         getTraingingPointsForm: builder.query<any, void>({
             query: () => ({
-                url: `/score/form`,
+                url: `/form/current`,
                 method: "GET",  
             }),
         }),
         submitTrainingPoints: builder.mutation<any, { studentId: string, semesterId: string, score: number }>({
             query: ({ studentId, semesterId, score }) => ({
-                url: `/score/submit`,
+                url: `/score?studentId=${studentId}&semester=${semesterId}`,
                 method: "POST",
-                body: { studentId, semesterId, score },
+                body: { self_score : score },
             }),
         }),
     }),

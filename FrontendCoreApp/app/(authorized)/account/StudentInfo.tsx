@@ -4,17 +4,11 @@ import TableInfo from "@/components/TableInfo";
 import { useGetUserInfoQuery } from "@/services";
 import { useEffect, useState } from "react";
 import { getUserId } from "@/utils/getUser";
+import { useAppSelector } from "@/store/hooks";
 
 export default function StudentInfo() {
-    const [studentId, setStudentId] = useState<string | null>(null);
+    const studentId = useAppSelector((state) => state.user?.studentId);
 
-    useEffect(() => {
-        const fetchUserId = async () => {
-            const id = await getUserId();
-            setStudentId(id);
-        };
-        fetchUserId();
-    }, []);
     const { data: user, isLoading, isError } = useGetUserInfoQuery(
         { studentId }, 
         { skip: !studentId }

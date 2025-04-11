@@ -33,7 +33,6 @@ export default function Notifications() {
 
   useEffect(() => {
     const fetchToken = async () => {
-
       const randomNotifications = generateRandomNotifications();
       setNotifications(randomNotifications);
     };
@@ -43,7 +42,9 @@ export default function Notifications() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Notifications</Text>
+            <View style={styles.header}>
+              <Text style={styles.headerTitle}>Thông báo</Text>
+            </View>
       <FlatList
         data={notifications}
         keyExtractor={(item, index) => index.toString()}
@@ -52,6 +53,7 @@ export default function Notifications() {
             <Text style={styles.notification}>{item}</Text>
           </TouchableOpacity>
         )}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </View>
   );
@@ -60,29 +62,40 @@ export default function Notifications() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#f9f9f9',
   },
+  header: {
+    backgroundColor: '#007398',
+    padding: 16,
+    alignItems: 'center',
+  },
+  headerTitle: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+
   title: {
     fontSize: 26,
     fontWeight: '600',
     color: '#333',
+    paddingHorizontal: 20,
     marginBottom: 20,
   },
   notificationCard: {
     backgroundColor: '#fff',
-    marginBottom: 15,
-    padding: 12,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 2,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
   },
   notification: {
     fontSize: 16,
     color: '#333',
     lineHeight: 22,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#ddd',
+    marginLeft: 20,
+    marginRight: 20,
   },
 });

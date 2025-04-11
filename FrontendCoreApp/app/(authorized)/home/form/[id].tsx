@@ -1,8 +1,8 @@
 import { useSubmitTrainingPointsMutation } from "@/services/trainingpoints.service";
-import { getUser } from "@/utils/getUser";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, StyleSheet } from "react-native";
+import { useAppSelector } from "@/store/hooks";
 
 interface Answers {
   [key: number]: number;
@@ -10,16 +10,9 @@ interface Answers {
 
 export default function TrainingPointsForm() {
   const { id: semesterId } = useLocalSearchParams();
-  const [user, setUser] = useState<any>(null);
+  const studentId = useAppSelector((state) => state.user?.studentId);
   const [submitTrainingPoints, { isLoading }] = useSubmitTrainingPointsMutation();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUser();
-      setUser(user);
-    };
-    fetchUser();
-  }, []);
 
   const [answers, setAnswers] = useState<Answers>({});
 
@@ -60,7 +53,7 @@ export default function TrainingPointsForm() {
     if (isInvalid) {
       Alert.alert("Điểm không hợp lệ");
     } else {
-      submitTrainingPoints({ studentId: user.id, semesterId: semesterId as string, score: totalScore });
+      submitTrainingPoints({ studentId, semesterId: semesterId as string, score: totalScore });
       Alert.alert("Điểm đã được gửi thành công");
     }
   };
