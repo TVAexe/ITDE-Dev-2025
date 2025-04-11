@@ -3,16 +3,18 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Stack } from "expo-router";
 import { View, ScrollView, ActivityIndicator, Text, StyleSheet } from "react-native";
 import EventInfo from "@/components/EventInfo";
-import { useGetEventsQuery, useGetRegisteredEventsQuery } from "@/services";
+import { useGetEventsQuery, useGetRegisteredEventsQuery, userApiSlice } from "@/services";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import { getUserId } from "@/utils/getUser";
+import { useAppSelector } from "@/store/hooks";
 const Tab = createMaterialTopTabNavigator();
+
 
 function AllRecords() {
     const { data: eventsData, isLoading } = useGetEventsQuery();
     if (isLoading) return <LoadingIndicator />
-
+    
     return (
         <ScrollView style={{ flex: 1, padding: 10 }}>
             <EventInfo data={eventsData.data} />
@@ -21,36 +23,19 @@ function AllRecords() {
 }
 
 function RegisteredRecords() {
-    const [studentId, setStudentId] = useState<string | null>(null);
+    const studentId = useAppSelector((state) => state.user?.studentId);
+    const {data: registeredEventsData,isLoading} = useGetRegisteredEventsQuery({studentId}, {skip: !studentId});
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const id = await getUserId();
-            setStudentId(id);
-        };
-        fetchUser();
-    }, []);
 
-    const { data: registeredEventsData, refetch: refetchRegisteredEvents, isLoading } = useGetRegisteredEventsQuery(studentId || "", {
-        skip: !studentId,
-    });
-    
-
-    const mappedEvents = registeredEventsData?.data?.map((event: any) => ({
-        name: event.name,
-        startTime: event.startTime,
-        endTime: event.endTime,
-        location: event.location,
-      }));
-
-    if (isLoading) return <LoadingIndicator />
+    if (isLoading) return <LoadingIndicator />;
 
     return (
         <ScrollView style={{ flex: 1, padding: 10 }}>
-            <EventInfo data={mappedEvents} />
+            <EventInfo data={registeredEventsData.data} />
         </ScrollView>
     );
 }
+
 
 export default function Events() {
     return (

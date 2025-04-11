@@ -5,7 +5,7 @@ const trainingPointsService = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getTrainingPoints: builder.query<any, { studentId: string, semesterId: string }>({
             query: ({ studentId, semesterId }) => ({
-                url: `/score?studentId=${studentId}&semesterId=${semesterId}`,
+                url: `/score?studentId=${studentId}&semester=${semesterId}`,
                 method: "GET",  
             }),
         }),

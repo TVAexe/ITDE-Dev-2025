@@ -1,4 +1,5 @@
 import { useGetUserInfoQuery } from '@/services';
+import { useAppSelector } from '@/store/hooks';
 import { getUserId } from '@/utils/getUser';
 import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -6,18 +7,7 @@ import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'rea
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
-
-  const [studentId, setStudentId] = useState<string | null>(null);
-  const { data: user, isLoading, isError } = useGetUserInfoQuery({studentId}, {
-    skip: !studentId,
-  });
-  useEffect(() => {
-    const fetchUser = async () => {
-      const id = await getUserId();
-      setStudentId(id);
-    };
-    fetchUser();
-  }, []);
+  const name = useAppSelector((state) => state.user.name)
 
 
   const menuItems = [
@@ -35,7 +25,7 @@ const HomeScreen = () => {
       <ScrollView>
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Chào {user?.data.name}</Text>
+            <Text style={styles.greeting}>Chào {name}</Text>
             <Text style={styles.subGreeting}>Chúc bạn một ngày tốt lành!</Text>
           </View>
         </View>

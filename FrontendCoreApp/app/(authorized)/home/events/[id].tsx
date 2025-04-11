@@ -9,60 +9,54 @@ import {
     useRegisterEventMutation,
     useCheckoutEventMutation
 } from "@/services";
-import { getUser } from "@/utils/getUser";
 import { formatTime } from "@/utils/formatDate";
 import { ActivityIndicator, Button } from "react-native-paper";
 import RenderHTML from "react-native-render-html";
-import { openCamera } from "@/utils/openCamera";
+import { useAppSelector } from "@/store/hooks";
 
 
 export default function EventDetails() {
     const { id } = useLocalSearchParams();
-    const { data: event, isLoading: isLoadingEvent } = useGetEventByIdQuery(id as string);
-    const [userId, setUserId] = useState<string | null>(null);
+    const { data: event, isLoading: isLoadingEvent } = useGetEventByIdQuery({eventId : id});
+    const studentId = useAppSelector((state) => state.user.studentId)
 
     const [registerEvent, { isLoading: isRegistering }] = useRegisterEventMutation();
     const [checkinEvent, { isLoading: isChecking }] = useCheckinEventMutation();
     const [checkoutEvent, { isLoading: isCheckingOut }] = useCheckoutEventMutation();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const user = await getUser();
-            setUserId(user.id);
-        };
-        fetchUser();
-    }, []);
 
-    const { data: registeredEvents, isLoading: isLoadingRegisteredEvents, refetch: refetchRegisteredEvents } = useGetRegisteredEventsQuery(userId || "", {
-        skip: !userId,
+    const { data: registeredEvents, isLoading: isLoadingRegisteredEvents, refetch: refetchRegisteredEvents } = useGetRegisteredEventsQuery({studentId}, {
+        skip: !studentId,
     });
 
-    const registeredEventIds = new Set(registeredEvents?.map((e: any) => e.id));
+    
+
+    const registeredEventIds = new Set(registeredEvents?.data.map((e: any) => e.id));
     const isRegistered = registeredEventIds.has(id);
 
     const { data: checkinData, isFetching: isLoadingCheckin, refetch } = useGetCheckinCountQuery(
-        { studentId: userId || "", eventId: id as string },
-        { skip: !userId || !isRegistered }
+        { studentId: studentId || "", eventId: id as string },
+        { skip: !studentId || !isRegistered }
     );
 
-    const checkinCnt = checkinData?.checkinCount ?? 0;
+    const checkinCnt = checkinData?.data.checkinCount ?? 0;
 
     const handleRegister = async () => {
-        if (!userId) return;
-        await registerEvent({ studentId: userId, eventId: id as string }).unwrap();
+        if (!studentId) return;
+        await registerEvent({ studentId, eventId: id as string }).unwrap();
         refetchRegisteredEvents();
     };
 
     const handleCheckinFirstTime = async () => {
-        if (!userId || checkinCnt !== 0) return;
+        if (!studentId || checkinCnt !== 0) return;
         router.push(`/home/events/camera/${id}`);
         // await checkinEvent({ studentId: userId, eventId: id as string }).unwrap();
         // refetch();
     };
 
     const handleCheckinSecondTime = async () => {
-        if (!userId || checkinCnt !== 1) return;
-        await checkoutEvent({ studentId: userId, eventId: id as string }).unwrap();
+        if (!studentId || checkinCnt !== 1) return;
+        await checkoutEvent({ studentId: studentId, eventId: id as string }).unwrap();
         refetch();
     };
 
@@ -75,8 +69,20 @@ export default function EventDetails() {
         );
     }
 
+    if(!event){
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#007AFF" />
+                <Text>Loading event details...</Text>
+            </View>
+        );
+    }
+
+    console.log(event);
+
+    // event description là một html để định dạng tùy ý
     const source = {
-        html: event?.description
+        html: event?.data.description
     };
 
     return (
@@ -84,11 +90,9 @@ export default function EventDetails() {
             <Stack.Screen options={{ title: "Event Details", headerStyle: { backgroundColor: "#007398" }, headerTintColor: '#fff' }} />
 
             <Text style={styles.title}>{event?.name}</Text>
-            <Text style={styles.description}>{event?.description}</Text>
-            <Text style={styles.location}>📍 {event?.location}</Text>
-            <Text style={styles.date}>⏰ {formatTime(event?.start_time)} - {formatTime(event?.end_time)}</Text>
-            <Text style={styles.status}>Status: {event?.status}</Text>
-
+            <Text style={styles.description}>{event?.data.description}</Text>
+            <Text style={styles.location}>📍 {event?.data.location}</Text>
+            <Text style={styles.date}>⏰ {formatTime(event?.data.startTime)} - {formatTime(event?.data.endTime)}</Text>
             <RenderHTML source={source} />
 
 

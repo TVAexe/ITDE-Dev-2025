@@ -9,32 +9,20 @@ import { skipToken } from "@reduxjs/toolkit/query";
 import { Dropdown } from "react-native-element-dropdown";
 import ScoreInfo from "@/components/ScoreInfo";
 import LoadingIndicator from "@/components/LoadingIndicator";
-
+import { getUserId } from "@/utils/getUser";
+import { useAppSelector } from "@/store/hooks";
 export default function Analyst() {
-    const [userId, setUserId] = useState<string | null>(null);
     const [semesterId, setSemesterId] = useState<string | null>(null);
-    
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const id = await AsyncStorage.getItem("userId");
-            
-            if (id) {
-                setUserId(id);
-            }
-            
-        };
-        fetchUser();
-        
-    }, []);
+    const studentId = useAppSelector((state) => state.user?.studentId);
 
     const { data: semesterData, isLoading: isSemesterLoading } = useGetSemesterByStudentIdQuery(
-        userId ? userId : skipToken
+        studentId ? {studentId} : skipToken
     );
 
-    const semesterOptions = semesterData
-        ? semesterData.map((semester: any) => ({
-              label: semester.name, 
+
+    const semesterOptions = semesterData?.data
+        ? semesterData.data.map((semester: any) => ({
+              label: `Kì ${semester.number} năm ${semester.year}`, 
               value: semester.id,
           }))
         : [];
@@ -47,10 +35,11 @@ export default function Analyst() {
 
 
     const { data: trainingPointsData, isLoading } = useGetTrainingPointsQuery(
-        userId && semesterId ? { studentId: userId, semesterId } : skipToken
+        studentId && semesterId ? { studentId, semesterId } : skipToken
     );
 
-    if (!userId) return <Text>Đang tải thông tin sinh viên...</Text>;
+
+    if (!studentId || !semesterId) return <Text>Đang tải thông tin sinh viên...</Text>;
 
     return (
         <View style={styles.container}>
@@ -71,9 +60,9 @@ export default function Analyst() {
 
             {isLoading ? (
                 <LoadingIndicator />
-            ) : trainingPointsData && trainingPointsData.length > 0 ? (
+            ) : trainingPointsData.data ? (
                 <>
-                    <ScoreInfo data={trainingPointsData[0].scores} title="Điểm chi tiết" />
+                    <ScoreInfo data={trainingPointsData.data} title="Điểm chi tiết" />
                 </>
             ) : (
                 <Text>Không có dữ liệu điểm rèn luyện</Text>

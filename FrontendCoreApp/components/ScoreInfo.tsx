@@ -6,14 +6,15 @@ interface ScoreInfoProps {
 }
 
 export default function ScoreInfo({ data = {}, title }: ScoreInfoProps) {
-  const fieldsToDisplay = ['event_score', 'club_score', 'nckh_score', 'self_score', 'total_score'];
-
+  const fieldsToDisplay = ['event_score', 'club_score', 'nckh_score', 'self_score', 'academic_score', 'totalScore'];
+  
   const fieldLabels: Record<string, string> = {
     event_score: 'Điểm sự kiện',
     club_score: 'Điểm CLB',
     nckh_score: 'Điểm NCKH',
     self_score: 'Điểm tự chấm',
-    total_score: 'Điểm học tập',
+    academic_score: 'Điểm học tập',
+    totalScore: 'Tổng điểm',
   };
 
   const filteredEntries = Object.entries(data || {}).filter(([key]) => fieldsToDisplay.includes(key));

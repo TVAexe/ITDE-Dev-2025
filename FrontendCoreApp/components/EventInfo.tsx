@@ -15,7 +15,6 @@ interface EventInfoProps {
 }
 
 export default function EventInfo({ data = [] }: EventInfoProps) {
-  console.log(data);
   return (
     <View style={styles.container}>
       {data.length > 0 ? (
