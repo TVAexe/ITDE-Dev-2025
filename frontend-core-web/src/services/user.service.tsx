@@ -1,19 +1,17 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiSlice from './api';
 import { setUser } from '@/store/slices/userSlice';
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<any, { username: string; password: string }>({
       query: (body) => ({
-        url: '/login',
+        url: '/api/auth/login',
         method: 'POST',
         body,
       }),
       async onQueryStarted(arg, {dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          await AsyncStorage.setItem('accessToken', data.data.accessToken);
-          await AsyncStorage.setItem('userId', "ST001");
+          await localStorage.setItem('accessToken', data.data.accessToken);
           dispatch(setUser({studentId:"ST001", name : "Nguyễn Văn A", avatar : "https://i.pinimg.com/originals/db/8e/0d/db8e0d7279eb0fb08fffb3b0d2f1d0e9.jpg"}));
         } catch (error) {
           console.error('Error saving token:', error);

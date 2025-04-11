@@ -33,8 +33,7 @@ const handleLogin = async () => {
 
   setIsLoading(true);
   try {
-    const response = await loginMutation({ username: studentId, password: password }).unwrap();
-    dispatch(setUser(response)); 
+    await loginMutation({ username: studentId, password: password }).unwrap();
     router.push('/(authorized)/(tabs)'); 
   } catch (error) {
     Alert.alert('Error', error instanceof Error ? error.message : 'Login failed');

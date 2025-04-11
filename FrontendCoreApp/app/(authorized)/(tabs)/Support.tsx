@@ -1,11 +1,15 @@
+import { useAppSelector } from "@/store/hooks";
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Alert } from "react-native";
 
 export default function CTSVSupport() {
+    const user = useAppSelector((state) => state.user);
+
+
     const handleEmailPress = () => {
         const email = "hotronguoihoc@hvnh.edu.vn";
         const subject = "Liên hệ phòng CTSV";
-        const body = "Xin chào phòng Công tác sinh viên,\n\nTôi là [Họ tên] - MSSV: [Mã số sinh viên],\nTôi muốn hỏi về vấn đề...";
+        const body = `Kính gửi phòng Công tác sinh viên,\n\nTôi là ${user.name} - MSSV: ${user.studentId},\nEm muốn hỏi về vấn đề...`;
         const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
         Linking.openURL(mailtoUrl).catch(() => {

@@ -5,11 +5,11 @@ const eventsService = apiSlice.injectEndpoints({
         getEvents: builder.query<any, void>({
             query: () => `/eventDetails/ongoing`,
         }),
-        getRegisteredEvents: builder.query<any, string>({
-            query: (studentId: string) => `/events/registered?studentId=${studentId}`,
+        getRegisteredEvents: builder.query({
+            query: ({studentId}) => `/events/registered?studentId=${studentId}`,
         }),
-        getEventById: builder.query<any, string>({
-            query: (id: string) => `/events/${id}`,
+        getEventById: builder.query({
+            query: ({eventId}) => `/eventDetails/${eventId}`,
         }),
         registerEvent: builder.mutation<any, {studentId: string, eventId: string}>({
             query: ({studentId, eventId}) => {
