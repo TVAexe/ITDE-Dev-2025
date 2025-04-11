@@ -4,9 +4,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 interface MenuItemProps {
   semesterId: string;
   title: string;
+  endTime : string;
 }
 
-export default function MenuItem({ semesterId, title }: MenuItemProps) {
+export default function MenuItem({ semesterId, title, endTime }: MenuItemProps) {
   return (
     <TouchableOpacity 
       style={styles.button} 
@@ -15,7 +16,7 @@ export default function MenuItem({ semesterId, title }: MenuItemProps) {
     >
       <View style={styles.innerContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.text}>Deadline: {semesterId}</Text>
+        <Text style={styles.text}>Deadline: {endTime}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -18,8 +18,11 @@ export default function CTSVSupport() {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Liên hệ phòng CTSV</Text>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Thông báo</Text>
+            </View>
+
             <Text style={styles.description}>
                 Nếu bạn cần hỗ trợ về học vụ, hoạt động sinh viên, hay các vấn đề liên quan đến nhà trường, vui lòng liên hệ phòng Công tác sinh viên.
             </Text>
@@ -37,18 +40,23 @@ export default function CTSVSupport() {
                 <Text>Điện thoại: (028) 1234 5678</Text>
                 <Text>Giờ làm việc: Thứ 2 - Thứ 6, từ 8h00 đến 17h00</Text>
             </View>
-
-            <View style={styles.footer}>
-                <Text>Phòng CTSV luôn sẵn sàng hỗ trợ bạn!</Text>
-            </View>
-        </ScrollView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
         backgroundColor: "#fff",
+    },
+    header: {
+        backgroundColor: '#007398',
+        padding: 16,
+        alignItems: 'center',
+    },
+        headerTitle: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: '600',
     },
     title: {
         fontSize: 24,
@@ -60,9 +68,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 20,
         color: "#34495e",
+        paddingVertical : 15,
+        paddingHorizontal : 20
     },
     section: {
         marginBottom: 30,
+        paddingHorizontal : 20
     },
     sectionTitle: {
         fontSize: 18,

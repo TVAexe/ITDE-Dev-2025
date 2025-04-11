@@ -5,16 +5,13 @@ import { Stack } from "expo-router";
 import { useGetTraingingPointsFormQuery } from "@/services/trainingpoints.service";
 import LoadingIndicator from "@/components/LoadingIndicator";
 
+
 export default function HomeForm() {
-  const [form, setForm] = useState<any>(null);
-  const { data: formData, isLoading } = useGetTraingingPointsFormQuery();
+  const { data: formData, isLoading, isError } = useGetTraingingPointsFormQuery();
 
-  useEffect(() => {
-    if (formData) {
-      setForm(formData);
-    }
-  }, [formData]);
+  if(isLoading) return <LoadingIndicator />
 
+  if(isError) return <View>Không thể load form</View>
   return (
 
     <View style={styles.container}>
@@ -28,23 +25,14 @@ export default function HomeForm() {
       />
       {isLoading ? (
         <LoadingIndicator />
-      ) : 
-      form?.length > 0 ? (
-        <ScrollView style={{ padding: 20 }}>
-        {form?.map((item: any) => (
-          <MenuItem key={item.semester_id} semesterId={item.semester_id} title={`Form tự đánh giá điểm rèn luyện ${item.semester_id}`} />
-          ))}
-        </ScrollView>
       ) : (
-        <View style={{ padding: 20 }}>
-          <Text>Không có dữ liệu</Text>
-        </View>
+        <ScrollView contentContainerStyle={{ paddingVertical: 16 }}>
+          <MenuItem semesterId={formData.data.semesterId} title={formData.data.title} endTime={formData.data.endTime}></MenuItem>
+        </ScrollView>
       )}
-    </View>
-
+  </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
